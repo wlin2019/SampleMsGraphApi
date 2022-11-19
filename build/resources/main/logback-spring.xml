@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>./logs/graphapi.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>./logs/system.log.%d{yyyy-MM-dd}</fileNamePattern>
+            <!-- keep last 30 days of logs -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{HH:mm:ss,SSS} %-5p [%c] - %m%n</pattern>
+        </encoder>
+    </appender>
+    <root level="info">
+        <appender-ref ref="Console" />
+    </root>
+    <!-- Log everything at the TRACE level -->
+    <logger name="gcom.ms360service.graphAPI" level="info" additivity="false">
+        <appender-ref ref="Console, FILE" />
+    </logger>
+</configuration>
